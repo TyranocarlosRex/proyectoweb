@@ -1,9 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducerEjemplo from '../features/ejemplo/ejemploSlice';
+import postsReducer from './funciones/posts/postsSlices';
 
 export const store = configureStore({
-  reducer: {
-    ejemplo: reducerEjemplo,
-    // aquí más slices…
-  },
+  reducer: { posts: postsReducer },
 });
