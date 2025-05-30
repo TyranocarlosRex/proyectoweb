@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import PostCard from './PostCard';
+import PostCard from './postCard';
 
 export default function PostsFeed() {
   const posts = useSelector(state => state.posts);
