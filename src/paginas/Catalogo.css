@@ -1,0 +1,115 @@
+.catalogo-container {
+  padding: 10px;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.search-input {
+  width: 75%;
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+}
+
+.catalogo-content {
+  display: flex;
+  gap: 15px;
+  padding: 0 10px;
+}
+
+.productos-lista {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.producto-card {
+  background-color: #666;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.producto-imagen {
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.producto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.descripcion {
+  color: white;
+  margin: 0;
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
+.producto-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-comprar {
+  background-color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.btn-favorito {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 50px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.caracteristicas-panel {
+  width: 250px;
+  background-color: #666;
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caracteristicas-panel h2 {
+  font-size: 12px;
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+} 
