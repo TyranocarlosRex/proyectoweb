@@ -4,26 +4,22 @@ import './Catalogo.css';
 
 export default function Catalogo() {
   const [seleccionado, setSeleccionado] = useState(null);
-  const [busqueda, setBusqueda]       = useState('');
+  const [busqueda, setBusqueda] = useState('');
 
   const { data: modelos = [], isLoading, isError, error } = useGetModelosQuery();
 
-  /* 🔍 Filtra una vez por render (useMemo) */
   const filtrados = useMemo(() => {
     const term = busqueda.trim().toLowerCase();
     if (!term) return modelos;
     return modelos.filter(m =>
-      (m.nombre        && m.nombre.toLowerCase().includes(term)) ||
-      (m.descripcion   && m.descripcion.toLowerCase().includes(term)) ||
-      (m.categoria     && m.categoria.toLowerCase().includes(term))
+      (m.nombre && m.nombre.toLowerCase().includes(term)) ||
+      (m.descripcion && m.descripcion.toLowerCase().includes(term)) ||
+      (m.categoria && m.categoria.toLowerCase().includes(term))
     );
   }, [busqueda, modelos]);
 
-  
-
   return (
     <div className="catalogo-container">
-      {/* BARRA DE BÚSQUEDA */}
       <div className="search-bar">
         <input
           type="text"
@@ -35,10 +31,9 @@ export default function Catalogo() {
       </div>
 
       <div className="catalogo-content">
-        {/* LISTA */}
         <div className="productos-lista">
           {isLoading && <p className="mensaje">Cargando…</p>}
-          {isError   && <p className="mensaje error">Error: {error?.error}</p>}
+          {isError && <p className="mensaje error">Error: {error?.error}</p>}
 
           {filtrados.length === 0 && !isLoading && (
             <p className="mensaje">Sin resultados para “{busqueda}”.</p>
@@ -51,7 +46,7 @@ export default function Catalogo() {
               onClick={() => setSeleccionado(m)}
             >
               <div className="producto-imagen">
-                <img src={m.miniaturaUrl || '/no-image.png'} alt={m.descripcion}/>
+                <img src={m.miniaturaUrl || '/no-image.png'} alt={m.descripcion} />
               </div>
               <div className="producto-info">
                 <p className="descripcion">{m.descripcion}</p>
@@ -63,7 +58,6 @@ export default function Catalogo() {
           ))}
         </div>
 
-        {/* PANEL DETALLE */}
         <div className="caracteristicas-panel">
           {seleccionado ? (
             <>
@@ -71,7 +65,11 @@ export default function Catalogo() {
               <p><strong>Categoría:</strong> {seleccionado.categoria}</p>
               <p>{seleccionado.descripcion}</p>
               {seleccionado.miniaturaUrl && (
-                <img src={seleccionado.miniaturaUrl} alt={seleccionado.descripcion} className="preview-img"/>
+                <img
+                  src={seleccionado.miniaturaUrl}
+                  alt={seleccionado.descripcion}
+                  className="preview-img"
+                />
               )}
             </>
           ) : (

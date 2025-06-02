@@ -15,7 +15,7 @@ export default function Publicar() {
     e.preventDefault();
     if (!archivo) return alert('Selecciona un archivo');
 
-    // 👉 arma FormData para enviar imagen + campos
+    //  arma FormData para enviar imagen + campos
     const data = new FormData();
     data.append('nombre', nombre);
     data.append('descripcion', descripcion);

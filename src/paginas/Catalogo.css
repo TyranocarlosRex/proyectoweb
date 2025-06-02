@@ -40,8 +40,8 @@
 }
 
 .producto-imagen {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background-color: #ccc;
   display: flex;
   align-items: center;
@@ -49,6 +49,17 @@
   color: #666;
   font-weight: bold;
   font-size: 12px;
+}
+.producto-imagen img {
+  /* llena todo el cuadro */
+  width: 100%;
+  height: 100%;
+
+  /* recorta (sin deformar) lo que se salga */
+  object-fit: cover;           
+
+  /* quita el espacio inline extra */
+  display: block;              
 }
 
 .producto-info {
@@ -107,9 +118,72 @@
   justify-content: center;
 }
 
+
 .caracteristicas-panel h2 {
   font-size: 12px;
   margin: 0;
   font-weight: normal;
   text-transform: uppercase;
 } 
+
+.catalogo-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.lista-modelos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modelo-card {
+  display: flex;                 /* ➊ todos los hijos en una línea */
+  align-items: center;           /* ➋ centrado vertical */
+  gap: 1rem;                     /* separación entre columnas       */
+  background: #606060;           /* tu gris                         */
+  border-radius: .4rem;
+  padding: .8rem 1rem;
+  margin-block: .5rem;
+  position: relative;            /* por si luego posicionas el cora */
+}
+
+/* --- Cuadro de la miniatura --- */
+.modelo-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* --- La foto en sí --- */
+.modelo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* llena el marco sin deformarse */
+  display: block;      /* quita el espacio inline */
+}
+
+
+/* --- Columna de texto --- */
+.modelo-info {
+  /* Espaciado y alineación */
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* --- Botón de favorito --- */
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  transition: color .2s;
+  color: #fff;
+}
+.fav-btn.isFav {                 /* cuando esté marcado */
+  color: #ff4b7d;
+}

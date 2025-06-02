@@ -1,14 +1,47 @@
-.card{
-  display:flex; align-items:center;
-  background:#666; color:#fff;
-  border-radius:4px; padding:12px; margin-bottom:12px;
+.modelo-card {
+  display: flex;                 /* ➊ todos los hijos en una línea */
+  align-items: center;           /* ➋ centrado vertical */
+  gap: 1rem;                     /* separación entre columnas       */
+  background: #606060;           /* tu gris                         */
+  border-radius: .4rem;
+  padding: .8rem 1rem;
+  margin-block: .5rem;
+  position: relative;            /* por si luego posicionas el cora */
 }
-.thumb{
-  width:80px; height:80px; object-fit:cover; margin-right:12px;
+
+/* --- Cuadro de la miniatura --- */
+.modelo-thumb {
+  width: 30px;                   /* cambia al tamaño que quieras */
+  height: 30px;
+  flex-shrink: 0;                /* evita que se comprima */
+  border-radius: .3rem;
+  overflow: hidden;              /* ¡clave! recorta la foto       */
+  background: #cfcfcf;           /* gris claro si la foto tarda   */
 }
-.descripcion{ flex:1; }
-.favBtn{
-  background:none; border:none; font-size:24px; cursor:pointer;
-  transition:transform .2s;
+
+/* --- La foto en sí --- */
+.modelo-thumb img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;             /* llena el cuadro sin deformar  */
+  display: block;
 }
-.favBtn:hover{ transform:scale(1.2); }
+
+/* --- Columna de texto --- */
+.modelo-info {
+  flex: 1;                       /* ocupa todo el espacio libre   */
+  color: #fff;
+}
+
+/* --- Botón de favorito --- */
+.fav-btn {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  cursor: pointer;
+  transition: color .2s;
+  color: #fff;
+}
+.fav-btn.isFav {                 /* cuando esté marcado */
+  color: #ff4b7d;
+}

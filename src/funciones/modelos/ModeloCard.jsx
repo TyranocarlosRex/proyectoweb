@@ -1,13 +1,25 @@
-import './modeloCard.css';      // tu css actual
+import './modeloCard.css';
 
-export default function ModeloCard({ modelo }) {
-  const { imagenUrl, descripcion } = modelo;
+export default function ModelCard({ modelo, onFav }) {
+  const src = `${import.meta.env.VITE_API_URL}/${modelo.rutaImagen}`; // ajusta a tu campo
 
   return (
-    <article className="card">
-      <img src={imagenUrl} alt={descripcion} className="thumb" />
-      <span className="descripcion">{descripcion}</span>
-      <button className="favBtn">❤</button>
+    <article className="modelo-card">
+      <div className="modelo-thumb">
+        <img src={src} alt={modelo.nombre} />
+      </div>
+
+      <div className="modelo-info">
+        <h4>{modelo.nombre}</h4>
+        <p>{modelo.descripcion}</p>
+      </div>
+
+      <button
+        className={`fav-btn ${modelo.favorito ? 'isFav' : ''}`}
+        onClick={() => onFav(modelo.id)}
+      >
+        ❤
+      </button>
     </article>
   );
 }
