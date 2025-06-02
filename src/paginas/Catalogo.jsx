@@ -1,41 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useGetModelosQuery } from '../features/api/modelosApi';  // 👈 hook de RTK Query
 import './Catalogo.css';
 
 export default function Catalogo() {
-  // Estado local para mostrar detalles del modelo seleccionado
   const [seleccionado, setSeleccionado] = useState(null);
+  const [busqueda, setBusqueda]       = useState('');
 
-  // Llamada a la API (RTK Query maneja caching, loading, error…)
   const { data: modelos = [], isLoading, isError, error } = useGetModelosQuery();
+
+  /* 🔍 Filtra una vez por render (useMemo) */
+  const filtrados = useMemo(() => {
+    const term = busqueda.trim().toLowerCase();
+    if (!term) return modelos;
+    return modelos.filter(m =>
+      (m.nombre        && m.nombre.toLowerCase().includes(term)) ||
+      (m.descripcion   && m.descripcion.toLowerCase().includes(term)) ||
+      (m.categoria     && m.categoria.toLowerCase().includes(term))
+    );
+  }, [busqueda, modelos]);
+
+  
 
   return (
     <div className="catalogo-container">
-      {/* 🔍 Barra de búsqueda (todavía sin lógica de filtro) */}
+      {/* BARRA DE BÚSQUEDA */}
       <div className="search-bar">
-        <input type="text" placeholder="Buscar..." className="search-input" />
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          className="search-input"
+        />
       </div>
 
       <div className="catalogo-content">
-        {/* LISTA DE PRODUCTOS */}
+        {/* LISTA */}
         <div className="productos-lista">
           {isLoading && <p className="mensaje">Cargando…</p>}
           {isError   && <p className="mensaje error">Error: {error?.error}</p>}
 
-          {modelos.map((m) => (
+          {filtrados.length === 0 && !isLoading && (
+            <p className="mensaje">Sin resultados para “{busqueda}”.</p>
+          )}
+
+          {filtrados.map((m) => (
             <div
               key={m.id}
               className="producto-card"
-              onClick={() => setSeleccionado(m)}          
+              onClick={() => setSeleccionado(m)}
             >
               <div className="producto-imagen">
-                {/* Fallback si no hay miniatura */}
-                <img
-                  src={m.miniaturaUrl || '/no-image.png'}
-                  alt={m.descripcion}
-                />
+                <img src={m.miniaturaUrl || '/no-image.png'} alt={m.descripcion}/>
               </div>
-
               <div className="producto-info">
                 <p className="descripcion">{m.descripcion}</p>
                 <div className="producto-actions">
@@ -46,20 +63,15 @@ export default function Catalogo() {
           ))}
         </div>
 
-        {/* PANEL DE CARACTERÍSTICAS */}
+        {/* PANEL DETALLE */}
         <div className="caracteristicas-panel">
           {seleccionado ? (
             <>
-              <h2>Características</h2>
-              <p><strong>ID:</strong> {seleccionado.id}</p>
-              <p><strong>Descripción:</strong> {seleccionado.descripcion}</p>
-              {/* Muestra imagen grande si existe */}
+              <h2>{seleccionado.nombre}</h2>
+              <p><strong>Categoría:</strong> {seleccionado.categoria}</p>
+              <p>{seleccionado.descripcion}</p>
               {seleccionado.miniaturaUrl && (
-                <img
-                  src={seleccionado.miniaturaUrl}
-                  alt={seleccionado.descripcion}
-                  className="preview-img"
-                />
+                <img src={seleccionado.miniaturaUrl} alt={seleccionado.descripcion} className="preview-img"/>
               )}
             </>
           ) : (
